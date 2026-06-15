@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LuxeCasa — Premium Furniture</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;color:#2c2c2a;background:#fff}
+a{text-decoration:none;color:inherit}
+
+/* ── OVERLAY ── */
+#overlay{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.6);
+  z-index:998;
+}
+#overlay.active{display:block}
+
+/* ── COOKIE BAR ── */
+#cookieBar{
+  display:none;
+  position:fixed;
+  bottom:0;left:0;right:0;
+  background:#ffffff;
+  border-top:1px solid #e0d8ce;
+  padding:20px 40px;
+  z-index:1000;
+  flex-wrap:wrap;
+  gap:16px;
+  align-items:center;
+}
+#cookieBar.active{display:flex}
+#cookieBar p{font-size:14px;color:#555;flex:1;min-width:220px;line-height:1.6}
+#cookieBar p a{color:#b07d4a;font-size:13px;display:block;margin-top:4px;text-decoration:underline}
+.cookie-btns{display:flex;gap:10px;flex-shrink:0}
+.btn-accept{background:#2c2c2a;color:#fff;border:none;padding:11px 24px;border-radius:8px;font-size:14px;cursor:pointer}
+.btn-accept:hover{background:#444}
+.btn-decline{background:#fff;color:#2c2c2a;border:1px solid #ccc;padding:11px 24px;border-radius:8px;font-size:14px;cursor:pointer}
+.btn-decline:hover{background:#f5f0e8}
+
+/* ── NAV ── */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 40px;
+  border-bottom:1px solid #ece8e0;
+  background:#ffffff;
+  position:sticky;top:0;
+  z-index:100;
+}
+.logo{font-size:22px;font-weight:600;letter-spacing:-0.5px;color:#2c2c2a}
+.logo span{color:#b07d4a}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:14px;color:#555}
+.nav-links a:hover{color:#2c2c2a}
+.nav-right{display:flex;gap:16px;align-items:center}
+.nav-right a{font-size:20px;color:#ffff}
+.btn-nav{background:#2c2c2a;color:#fff;padding:9px 20px;border-radius:8px;font-size:13px}
+
+/* ── HERO ── */
+.hero{background:#f5f0e8;padding:90px 40px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.hero-text{max-width:520px}
+.hero-text .tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#b07d4a;margin-bottom:16px}
+.hero-text h1{font-size:48px;font-weight:600;line-height:1.12;color:#2c2c2a;margin-bottom:20px}
+.hero-text p.sub{font-size:16px;color:#6b6b68;line-height:1.75;margin-bottom:36px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{background:#2c2c2a;color:#fff;padding:14px 30px;border-radius:8px;font-size:14px;font-weight:500}
+.btn-secondary{border:1px solid #2c2c2a;color:#2c2c2a;padding:14px 30px;border-radius:8px;font-size:14px;background:transparent}
+.btn-primary:hover{background:#444}
+.btn-secondary:hover{background:#f0ebe2}
+.hero-img{width:400px;height:300px;background:#e8dece;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:100px}
+
+/* ── STATS ── */
+.stats-bar{display:grid;grid-template-columns:repeat(5,1fr);background:#2c2c2a;padding:36px 40px;gap:1px}
+.stat-item{text-align:center;padding:8px}
+.stat-item .num{font-size:30px;font-weight:600;color:#fff;margin-bottom:4px}
+.stat-item .lbl{font-size:13px;color:#aaa}
+
+/* ── SECTIONS ── */
+.section{padding:80px 40px}
+.section-hd{margin-bottom:44px;text-align:center}
+.section-hd .tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#b07d4a;margin-bottom:10px}
+.section-hd h2{font-size:34px;font-weight:600;color:#2c2c2a;margin-bottom:10px}
+.section-hd p{font-size:15px;color:#777;max-width:540px;margin:0 auto;line-height:1.7}
+.bg-cream{background:#f5f0e8}
+.bg-dark{background:#2c2c2a}
+.bg-white{background:#fff}
+
+/* ── CATEGORIES ── */
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px}
+.cat-card{background:#fff;border-radius:12px;padding:28px 16px;text-align:center;cursor:pointer;border:1px solid transparent;transition:border-color 0.2s,transform 0.2s}
+.cat-card:hover{border-color:#b07d4a;transform:translateY(-2px)}
+.cat-card .icon{font-size:36px;color:#b07d4a;margin-bottom:10px}
+.cat-card p{font-size:13px;font-weight:500;color:#2c2c2a}
+
+/* ── PRODUCTS ── */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px}
+.product-card{background:#fff;border:1px solid #ece8e0;border-radius:12px;overflow:hidden;transition:border-color 0.2s}
+.product-card:hover{border-color:#b07d4a}
+.product-img{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:56px}
+.product-info{padding:16px 18px 20px}
+.product-info .cat{font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.product-info h3{font-size:15px;font-weight:500;margin-bottom:6px;color:#2c2c2a}
+.product-info .price{font-size:17px;font-weight:600;color:#b07d4a;margin-bottom:14px}
+.btn-add{width:100%;padding:10px;background:#2c2c2a;color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer}
+.btn-add:hover{background:#444}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.about-img{background:#e8dece;border-radius:16px;height:380px;display:flex;align-items:center;justify-content:center;font-size:100px}
+.about-text .tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#b07d4a;margin-bottom:12px}
+.about-text h2{font-size:34px;font-weight:600;color:#2c2c2a;margin-bottom:16px;line-height:1.2}
+.about-text p{font-size:15px;color:#6b6b68;line-height:1.8;margin-bottom:14px}
+.about-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.pill{background:#fff;border:1px solid #d4c4b0;border-radius:20px;padding:7px 16px;font-size:13px;color:#6b5a45}
+
+/* ── WHY US ── */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
+.why-card{padding:28px 24px;border:1px solid #ece8e0;border-radius:12px;background:#fff;transition:border-color 0.2s}
+.why-card:hover{border-color:#b07d4a}
+.why-card .icon-wrap{width:50px;height:50px;background:#f5f0e8;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:24px;color:#b07d4a}
+.why-card h3{font-size:15px;font-weight:600;margin-bottom:8px}
+.why-card p{font-size:13px;color:#777;line-height:1.7}
+
+/* ── PROCESS ── */
+.process-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px;margin-top:44px}
+.step{text-align:center;padding:24px 16px}
+.step-num{width:50px;height:50px;background:#2c2c2a;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;margin:0 auto 18px}
+.step h3{font-size:15px;font-weight:600;margin-bottom:8px;color:#2c2c2a}
+.step p{font-size:13px;color:#6b6b68;line-height:1.7}
+
+/* ── OFFERS ── */
+.offer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.offer-card{border-radius:12px;padding:32px 26px}
+.offer-card.warm{background:#f5f0e8}
+.offer-card.dark{background:#2c2c2a}
+.offer-card.cream{background:#faf6f0}
+.badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:600;margin-bottom:16px;letter-spacing:0.5px}
+.badge-warm{background:#e8dece;color:#6b5a45}
+.badge-dark{background:rgba(255,255,255,0.15);color:#fff}
+.badge-cream{background:#f0e8dc;color:#7a5c38}
+.offer-card h3{font-size:20px;font-weight:600;margin-bottom:10px}
+.offer-card.warm h3,.offer-card.cream h3{color:#2c2c2a}
+.offer-card.dark h3{color:#fff}
+.offer-card p{font-size:13px;line-height:1.7;margin-bottom:20px}
+.offer-card.warm p,.offer-card.cream p{color:#6b5a45}
+.offer-card.dark p{color:#bbb}
+.offer-link{font-size:14px;font-weight:600}
+.offer-link-warm{color:#b07d4a}
+.offer-link-dark{color:#c4a06a}
+.offer-link-cream{color:#b07d4a}
+
+/* ── MATERIALS ── */
+.materials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:44px}
+.mat-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:26px 16px;text-align:center}
+.mat-card .icon{font-size:34px;color:#c4a06a;margin-bottom:12px}
+.mat-card h3{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
+.mat-card p{font-size:12px;color:#aaa;line-height:1.6}
+.materials-hd .tag{color:#c4a06a}
+.materials-hd h2,.materials-hd p{color:#fff}
+.materials-hd p{color:#bbb}
+
+/* ── REVIEWS ── */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.review-card{padding:24px;border:1px solid #ece8e0;border-radius:12px;background:#fff}
+.stars{color:#b07d4a;font-size:15px;margin-bottom:12px;letter-spacing:2px}
+.review-card p{font-size:14px;color:#666;line-height:1.7;margin-bottom:18px}
+.reviewer{display:flex;align-items:center;gap:10px}
+.avatar{width:38px;height:38px;border-radius:50%;background:#e8dece;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#6b5a45}
+.reviewer-info .name{font-size:13px;font-weight:600;color:#2c2c2a}
+.reviewer-info .loc{font-size:12px;color:#aaa}
+
+/* ── FAQ ── */
+.faq-list{max-width:720px;margin:44px auto 0;display:flex;flex-direction:column;gap:3px}
+.faq-item{background:#fff;border-radius:8px;overflow:hidden;border:1px solid #e8dece}
+.faq-q{padding:18px 22px;font-size:15px;font-weight:500;cursor:pointer;color:#2c2c2a;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.faq-q .faq-icon{font-size:20px;color:#b07d4a;transition:transform 0.25s;font-weight:300}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s}
+.faq-a.open{max-height:200px;padding:0 22px 18px}
+.faq-a p{font-size:14px;color:#666;line-height:1.8}
+
+/* ── BLOG ── */
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.blog-card{border:1px solid #ece8e0;border-radius:12px;overflow:hidden;transition:border-color 0.2s}
+.blog-card:hover{border-color:#b07d4a}
+.blog-img{height:145px;display:flex;align-items:center;justify-content:center;font-size:44px}
+.blog-body{padding:16px 18px 20px}
+.blog-body .btag{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#b07d4a;margin-bottom:8px}
+.blog-body h3{font-size:14px;font-weight:600;margin-bottom:8px;color:#2c2c2a;line-height:1.4}
+.blog-body p{font-size:12px;color:#888;line-height:1.6}
+
+/* ── BRANDS ── */
+.brands-section{padding:48px 40px;border-top:1px solid #ece8e0;border-bottom:1px solid #ece8e0;background:#fff}
+.brands-label{text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin-bottom:28px}
+.brands-row{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;align-items:center}
+.brand-tag{font-size:17px;font-weight:600;color:#ccc;letter-spacing:-0.5px}
+
+/* ── NEWSLETTER ── */
+.newsletter{background:#2c2c2a;padding:80px 40px;text-align:center}
+.newsletter h2{font-size:32px;font-weight:600;color:#fff;margin-bottom:10px}
+.newsletter p{font-size:15px;color:#aaa;margin-bottom:28px}
+.nl-form{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.nl-form input{padding:13px 20px;border-radius:8px;border:none;font-size:14px;width:290px}
+.nl-form button{padding:13px 26px;background:#b07d4a;color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer;font-weight:500}
+.nl-form button:hover{background:#9a6b3a}
+.nl-note{font-size:12px;color:#888;margin-top:14px}
+.nl-note a{color:#c4a06a;text-decoration:underline}
+
+/* ── CONTACT BANNER ── */
+.contact-banner{background:#f5f0e8;padding:80px 40px;text-align:center}
+.contact-banner .tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#b07d4a;margin-bottom:12px}
+.contact-banner h2{font-size:34px;font-weight:600;color:#2c2c2a;margin-bottom:12px}
+.contact-banner>p{font-size:15px;color:#6b6b68;margin-bottom:32px}
+.contact-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:44px}
+.contact-row{display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.contact-item{text-align:center}
+.contact-item .icon{font-size:30px;color:#b07d4a;margin-bottom:8px}
+.contact-item strong{font-size:14px;color:#2c2c2a;display:block;margin-bottom:4px;font-weight:600}
+.contact-item p{font-size:13px;color:#6b6b68}
+
+/* ── FOOTER ── */
+footer{padding:60px 40px;border-top:1px solid #ece8e0;background:#fff;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:36px}
+footer h4{font-size:13px;font-weight:600;margin-bottom:14px;color:#2c2c2a}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+footer ul li a{font-size:13px;color:#888}
+footer ul li a:hover{color:#2c2c2a}
+.footer-brand p{font-size:13px;color:#888;line-height:1.7;margin-top:10px}
+.social-row{display:flex;gap:10px;margin-top:18px}
+.social-btn{width:36px;height:36px;border:1px solid #ddd;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#888;font-size:16px;transition:border-color 0.2s,color 0.2s}
+.social-btn:hover{border-color:#b07d4a;color:#b07d4a}
+.footer-bottom{padding:20px 40px;border-top:1px solid #ece8e0;font-size:12px;color:#aaa;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;background:#fff}
+
+@media(max-width:768px){
+  nav{padding:14px 20px}
+  .nav-links{display:none}
+  .hero{padding:60px 20px;flex-direction:column}
+  .hero-img{width:100%;height:200px}
+  .hero-text h1{font-size:32px}
+  .stats-bar{grid-template-columns:repeat(3,1fr)}
+  .about-grid{grid-template-columns:1fr}
+  .section{padding:56px 20px}
+  footer{padding:40px 20px}
+  .footer-bottom{padding:16px 20px}
+  #cookieBar{padding:16px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- OVERLAY -->
+<div id="overlay"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Luxe<span>Casa</span></div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Shop</a></li>
+    <li><a href="#">Collections</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#">&#128269;</a>
+    <a href="#">&#128722;</a>
+    <a href="#" class="btn-nav">Get a Quote</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="tag">New 2025 Collection</p>
+    <h1>Timeless Furniture for Modern Homes</h1>
+    <p class="sub">Discover handcrafted pieces that blend elegance with everyday comfort. Built to last, designed to inspire.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">Shop Now</a>
+      <a href="#" class="btn-secondary">View Lookbook</a>
+    </div>
+  </div>
+  <div class="hero-img"><img src="sofa.png"></img></div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="num">15K+</div><div class="lbl">Happy Customers</div></div>
+  <div class="stat-item"><div class="num">500+</div><div class="lbl">Products</div></div>
+  <div class="stat-item"><div class="num">15 Yrs</div><div class="lbl">In Business</div></div>
+  <div class="stat-item"><div class="num">4.9 &#9733;</div><div class="lbl">Average Rating</div></div>
+  <div class="stat-item"><div class="num">48hrs</div><div class="lbl">Fast Delivery</div></div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="section bg-cream">
+  <div class="section-hd">
+    <p class="tag">Browse</p>
+    <h2>Shop by Category</h2>
+    <p>Everything you need for every room in your home</p>
+  </div>
+  <div class="cats-grid">
+    <div class="cat-card"><div class="icon">&#128681;</div><p>Sofas & Armchairs</p></div>
+    <div class="cat-card"><div class="icon">&#127812;</div><p>Beds & Frames</p></div>
+    <div class="cat-card"><div class="icon">&#127869;</div><p>Dining Tables</p></div>
+    <div class="cat-card"><div class="icon">&#128161;</div><p>Lighting</p></div>
+    <div class="cat-card"><div class="icon">&#128682;</div><p>Wardrobes</p></div>
+    <div class="cat-card"><div class="icon">&#128250;</div><p>TV Units</p></div>
+    <div class="cat-card"><div class="icon">&#128187;</div><p>Office Furniture</p></div>
+    <div class="cat-card"><div class="icon">&#127968;</div><p>Outdoor</p></div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="section bg-white">
+  <div class="section-hd">
+    <p class="tag">Products</p>
+    <h2>Featured Collection</h2>
+    <p>Handpicked pieces from our latest arrivals</p>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img" style="background:#f0e8dc;">&#128681;</div>
+      <div class="product-info"><p class="cat">Sofas</p><h3>Oslo 3-Seater Sofa</h3><p class="price">$1,299</p><button class="btn-add">Add to Cart</button></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#e8ecf0;">&#127812;</div>
+      <div class="product-info"><p class="cat">Beds</p><h3>Nordic King Bed Frame</h3><p class="price">$899</p><button class="btn-add">Add to Cart</button></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#ecf0e8;">&#127869;</div>
+      <div class="product-info"><p class="cat">Dining</p><h3>Elm Dining Table 6-Seat</h3><p class="price">$749</p><button class="btn-add">Add to Cart</button></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#f0ece8;">&#128161;</div>
+      <div class="product-info"><p class="cat">Lighting</p><h3>Arc Floor Lamp — Brass</h3><p class="price">$349</p><button class="btn-add">Add to Cart</button></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#ede8f0;">&#128682;</div>
+      <div class="product-info"><p class="cat">Storage</p><h3>Milano 3-Door Wardrobe</h3><p class="price">$1,099</p><button class="btn-add">Add to Cart</button></div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#e8f0ec;">&#128250;</div>
+      <div class="product-info"><p class="cat">Living Room</p><h3>Walnut TV Unit 180cm</h3><p class="price">$599</p><button class="btn-add">Add to Cart</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT US -->
+<section class="section bg-cream">
+  <div class="about-grid">
+    <div class="about-img">&#127968;</div>
+    <div class="about-text">
+      <p class="tag">Our Story</p>
+      <h2>Crafting Beautiful Spaces Since 2010</h2>
+      <p>LuxeCasa was born from a simple belief — everyone deserves a home they love. Founded in Columbus, Ohio by furniture designer Marco Barretti, we started as a small workshop and have grown into one of America's most trusted furniture brands.</p>
+      <p>Every piece we create goes through a rigorous design process rooted in sustainability, quality, and timeless aesthetics. We source our materials responsibly and work with skilled craftspeople who share our passion for detail.</p>
+      <div class="about-pills">
+        <span class="pill">&#127807; Sustainably sourced</span>
+        <span class="pill">&#127942; Award-winning design</span>
+        <span class="pill">&#128666; Nationwide delivery</span>
+        <span class="pill">&#128295; Expert assembly</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section bg-white">
+  <div class="section-hd">
+    <p class="tag">Advantages</p>
+    <h2>Why Choose LuxeCasa?</h2>
+    <p>We go above and beyond to make your experience exceptional from start to finish</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card"><div class="icon-wrap">&#127942;</div><h3>Premium quality</h3><p>Every piece is crafted using top-grade materials tested for durability, comfort, and finish — built to last decades, not years.</p></div>
+    <div class="why-card"><div class="icon-wrap">&#128666;</div><h3>White-glove delivery</h3><p>Our team delivers, assembles, and positions your furniture exactly where you want it. Free on orders over $500.</p></div>
+    <div class="why-card"><div class="icon-wrap">&#8635;</div><h3>30-day returns</h3><p>Not in love? Return any item within 30 days for a full refund — no questions asked and no hassle.</p></div>
+    <div class="why-card"><div class="icon-wrap">&#128737;</div><h3>2-year warranty</h3><p>All products come with a 2-year manufacturer warranty covering defects in materials and workmanship.</p></div>
+    <div class="why-card"><div class="icon-wrap">&#127912;</div><h3>Custom options</h3><p>Choose your fabric, finish, and dimensions. Many pieces can be fully customised to fit your space perfectly.</p></div>
+    <div class="why-card"><div class="icon-wrap">&#128222;</div><h3>Dedicated support</h3><p>Our furniture experts are available 7 days a week via phone, email, or live chat to help you choose the perfect piece.</p></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section bg-cream">
+  <div class="section-hd">
+    <p class="tag">How It Works</p>
+    <h2>From Browse to Beautiful Home</h2>
+    <p>Five simple steps to your perfect furniture</p>
+  </div>
+  <div class="process-steps">
+    <div class="step"><div class="step-num">1</div><h3>Browse & choose</h3><p>Explore our curated collections online or visit our showroom for a hands-on experience.</p></div>
+    <div class="step"><div class="step-num">2</div><h3>Customise</h3><p>Select your preferred finish, fabric, size, and add-ons to make it uniquely yours.</p></div>
+    <div class="step"><div class="step-num">3</div><h3>Order & pay</h3><p>Secure checkout with flexible payment options including 0% finance on orders over $999.</p></div>
+    <div class="step"><div class="step-num">4</div><h3>We deliver</h3><p>Our white-glove team delivers and assembles your furniture at a time that suits you.</p></div>
+    <div class="step"><div class="step-num">5</div><h3>Enjoy your home</h3><p>Sit back, relax, and fall in love with your beautifully furnished space.</p></div>
+  </div>
+</section>
+
+<!-- SPECIAL OFFERS -->
+<section class="section bg-white">
+  <div class="section-hd">
+    <p class="tag">Special Offers</p>
+    <h2>Deals You'll Love</h2>
+    <p>Exclusive savings across our most popular collections</p>
+  </div>
+  <div class="offer-grid">
+    <div class="offer-card warm">
+      <span class="badge badge-warm">Limited time</span>
+      <h3>Summer Sale — Up to 40% Off</h3>
+      <p>Shop our summer clearance and save big on sofas, beds, and dining sets. Ends June 30.</p>
+      <a href="#" class="offer-link offer-link-warm">Shop the sale &rarr;</a>
+    </div>
+    <div class="offer-card dark">
+      <span class="badge badge-dark">New arrivals</span>
+      <h3>2025 Nordic Collection</h3>
+      <p>Our latest Scandinavian-inspired range just landed. Clean lines, warm tones, premium oak finishes.</p>
+      <a href="#" class="offer-link offer-link-dark">Explore collection &rarr;</a>
+    </div>
+    <div class="offer-card cream">
+      <span class="badge badge-cream">Bundle & save</span>
+      <h3>Full Room Packages</h3>
+      <p>Get a complete bedroom or living room setup and save up to 25% vs buying pieces individually.</p>
+      <a href="#" class="offer-link offer-link-cream">View packages &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section class="section bg-dark">
+  <div class="section-hd materials-hd">
+    <p class="tag">Craftsmanship</p>
+    <h2>Materials We Use</h2>
+    <p>Every material is hand-selected for beauty, strength, and sustainability</p>
+  </div>
+  <div class="materials-grid">
+    <div class="mat-card"><div class="icon">&#127795;</div><h3>Solid Oak</h3><p>Rich grain, natural strength. Sourced from sustainable European forests.</p></div>
+    <div class="mat-card"><div class="icon">&#128142;</div><h3>Italian Leather</h3><p>Full-grain leather that ages beautifully and gets softer over time.</p></div>
+    <div class="mat-card"><div class="icon">&#127807;</div><h3>Organic Linen</h3><p>Natural, breathable, and hypoallergenic. Perfect for families and pets.</p></div>
+    <div class="mat-card"><div class="icon">&#9881;</div><h3>Brushed Steel</h3><p>Powder-coated for corrosion resistance and a premium industrial finish.</p></div>
+    <div class="mat-card"><div class="icon">&#127912;</div><h3>Velvet Fabric</h3><p>Luxurious, stain-resistant performance velvet in 20+ designer colours.</p></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section bg-white">
+  <div class="section-hd">
+    <p class="tag">Reviews</p>
+    <h2>What Our Customers Say</h2>
+    <p>Thousands of happy homes across the United States</p>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"The Oslo sofa is absolutely stunning. The quality far exceeded my expectations — feels like a luxury hotel. Delivery team was professional and set everything up perfectly."</p>
+      <div class="reviewer"><div class="avatar">SR</div><div class="reviewer-info"><div class="name">Sarah R.</div><div class="loc">Columbus, OH</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"Ordered a custom dining table with a walnut finish. Took 3 weeks but worth every day of waiting. Now the centrepiece of our home. Couldn't be happier with it."</p>
+      <div class="reviewer"><div class="avatar">JM</div><div class="reviewer-info"><div class="name">James M.</div><div class="loc">Austin, TX</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"I've bought from many furniture stores and LuxeCasa is a cut above the rest. The customer service team helped me find the perfect pieces for my apartment. 10/10."</p>
+      <div class="reviewer"><div class="avatar">AL</div><div class="reviewer-info"><div class="name">Anika L.</div><div class="loc">New York, NY</div></div></div>
+    </div>
+    <div class="review-card">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"Great return policy gave me peace of mind. I ended up keeping everything though — the bedroom set is gorgeous. The bed frame is solid as a rock, absolutely love it."</p>
+      <div class="reviewer"><div class="avatar">DP</div><div class="reviewer-info"><div class="name">David P.</div><div class="loc">Chicago, IL</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section bg-cream">
+  <div class="section-hd">
+    <p class="tag">FAQ</p>
+    <h2>Frequently Asked Questions</h2>
+    <p>Everything you need to know before you buy</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How long does delivery take? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Standard delivery takes 3–7 business days. Custom and bespoke orders may take 2–4 weeks. We'll keep you updated at every stage via email and SMS.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do you offer assembly services? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Yes! Our white-glove delivery team will assemble and position your furniture free of charge on all orders over $500. For smaller orders, assembly is available for a small fee.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What is your return policy? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>We offer a 30-day hassle-free return policy. If you're not satisfied, contact us within 30 days of delivery and we'll arrange a free collection and full refund.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I customise my order? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Absolutely. Many of our products are available in custom sizes, fabrics, and finishes. Use the product page options or contact our team for fully bespoke requests.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do you offer financing? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>Yes, we offer 0% interest financing on orders over $999. Apply at checkout in seconds with no impact to your credit score for checking eligibility.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What warranty do your products carry? <span class="faq-icon">+</span></div>
+      <div class="faq-a"><p>All products come with a 2-year manufacturer warranty. Some premium collections carry a 5-year extended warranty. Details are listed on each product page.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="section bg-white">
+  <div class="section-hd">
+    <p class="tag">Inspiration</p>
+    <h2>From the LuxeCasa Journal</h2>
+    <p>Interior tips, design guides, and home styling ideas</p>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card"><div class="blog-img" style="background:#f5f0e8;">&#128681;</div><div class="blog-body"><p class="btag">Living Room</p><h3>10 ways to style a neutral sofa</h3><p>A neutral sofa is your most versatile canvas. Here's how to make it pop.</p></div></div>
+    <div class="blog-card"><div class="blog-img" style="background:#e8ecf0;">&#127812;</div><div class="blog-body"><p class="btag">Bedroom</p><h3>How to create a hotel-style bedroom at home</h3><p>Learn the layering secrets professionals use to achieve that luxurious look.</p></div></div>
+    <div class="blog-card"><div class="blog-img" style="background:#ecf0e8;">&#127869;</div><div class="blog-body"><p class="btag">Dining</p><h3>Choosing the right dining table for your family</h3><p>Size, shape, material — a complete guide to the perfect table.</p></div></div>
+    <div class="blog-card"><div class="blog-img" style="background:#f0ece8;">&#127807;</div><div class="blog-body"><p class="btag">Sustainability</p><h3>Our commitment to sustainable sourcing</h3><p>A deep dive into how we choose materials with the planet in mind.</p></div></div>
+  </div>
+</section>
+
+<!-- AS SEEN IN -->
+<div class="brands-section">
+  <p class="brands-label">As featured in</p>
+  <div class="brands-row">
+    <span class="brand-tag">Architectural Digest</span>
+    <span class="brand-tag">Elle D&eacute;cor</span>
+    <span class="brand-tag">House Beautiful</span>
+    <span class="brand-tag">Dezeen</span>
+    <span class="brand-tag">Forbes</span>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <h2>Get 10% Off Your First Order</h2>
+  <p>Subscribe for exclusive deals, new arrivals, and interior design inspiration</p>
+  <div class="nl-form">
+    <input type="email" placeholder="Enter your email address">
+    <button>Subscribe &amp; Save</button>
+  </div>
+  <p class="nl-note">No spam. Unsubscribe anytime. <a href="cookies.html">Privacy Policy</a></p>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-banner">
+  <p class="tag">Get in Touch</p>
+  <h2>We'd Love to Help You</h2>
+  <p>Whether you have a question, need design advice, or want a custom quote — our team is here for you</p>
+  <div class="contact-btns">
+    <a href="#" class="btn-primary">Contact Us</a>
+    <a href="#" class="btn-secondary">Live Chat</a>
+  </div>
+  <div class="contact-row">
+    <div class="contact-item"><div class="icon">&#128222;</div><strong>+1 (614) 555-0199</strong><p>Mon–Sat, 9am–6pm EST</p></div>
+    <div class="contact-item"><div class="icon">&#128140;</div><strong>hello@luxecasa.com</strong><p>We reply within 24 hours</p></div>
+    <div class="contact-item"><div class="icon">&#128205;</div><strong>Columbus, Ohio</strong><p>Showroom open Mon–Sun</p></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo">Luxe<span>Casa</span></div>
+    <p>Premium furniture crafted for modern living. Serving homes across the US since 2010.</p>
+    <div class="social-row">
+      <a href="#" class="social-btn">&#127758;</a>
+      <a href="#" class="social-btn">f</a>
+      <a href="#" class="social-btn">in</a>
+      <a href="#" class="social-btn">&#9654;</a>
+    </div>
+  </div>
+  <div><h4>Shop</h4><ul><li><a href="#">Sofas</a></li><li><a href="#">Beds</a></li><li><a href="#">Dining</a></li><li><a href="#">Lighting</a></li><li><a href="#">Office</a></li><li><a href="#">Outdoor</a></li></ul></div>
+  <div><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li><li><a href="#">Sustainability</a></li></ul></div>
+  <div><h4>Support</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Delivery Info</a></li><li><a href="#">Returns</a></li><li><a href="#">Warranty</a></li><li><a href="#">Contact Us</a></li></ul></div>
+  <div><h4>Legal</h4><ul><li><a href="cookies.html">Cookie Policy</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Accessibility</a></li></ul></div>
+</footer>
+
+<div class="footer-bottom">
+  <span>&copy; 2025 LuxeCasa. All rights reserved.</span>
+  <span>Designed with care in Columbus, Ohio</span>
+</div>
+
+<!-- COOKIE BAR (fixed bottom, white bg, z-index above overlay) -->
+<div id="cookieBar">
+  <p>
+    We use cookies to enhance your browsing experience and serve personalised content. By clicking "Accept All" you consent to our use of cookies.
+    <a href="cookies.html">Read our Cookie Policy</a>
+  </p>
+  <div class="cookie-btns">
+    <a href="cookies.html"><button class="btn-decline" onclick="closeCookie()">Decline</button></a>
+    <a href="cookies.html"><button class="btn-accept" onclick="closeCookie()">Accept All</button></a>
+  </div>
+</div>
+
+<script>
+  // Show cookie bar + dark overlay after 5 seconds
+  setTimeout(function(){
+    document.getElementById('cookieBar').classList.add('active');
+    document.getElementById('overlay').classList.add('active');
+  }, 2000);
+
+  function closeCookie(){
+    document.getElementById('cookieBar').classList.remove('active');
+    document.getElementById('overlay').classList.remove('active');
+  }
+
+  // FAQ accordion
+  function toggleFaq(el){
+    var answer = el.nextElementSibling;
+    var icon = el.querySelector('.faq-icon');
+    var isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(function(a){ a.classList.remove('open'); });
+    document.querySelectorAll('.faq-icon').forEach(function(i){ i.textContent = '+'; i.style.transform = 'rotate(0deg)'; });
+    if(!isOpen){
+      answer.classList.add('open');
+      icon.textContent = '×';
+    }
+  }
+</script>
+</body>
+</html>

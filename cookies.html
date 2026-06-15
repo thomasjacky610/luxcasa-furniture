@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Policy — LuxeCasa</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;color:#2c2c2a;background:#fff}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:1px solid #ece8e0;background:#fff;position:sticky;top:0;z-index:100}
+.logo{font-size:22px;font-weight:600;letter-spacing:-0.5px;color:#2c2c2a}
+.logo span{color:#b07d4a}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:14px;color:#555}
+.nav-links a:hover{color:#2c2c2a}
+.nav-right{display:flex;gap:16px;align-items:center}
+.nav-right a{font-size:20px;color:#555}
+.btn-nav{background:#2c2c2a;color:#fff;padding:9px 20px;border-radius:8px;font-size:13px}
+
+/* HERO BAND */
+.page-hero{background:#f5f0e8;padding:60px 40px;text-align:center}
+.page-hero .tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#b07d4a;margin-bottom:12px}
+.page-hero h1{font-size:40px;font-weight:600;color:#2c2c2a;margin-bottom:12px}
+.page-hero p{font-size:15px;color:#6b6b68;max-width:560px;margin:0 auto;line-height:1.7}
+.page-hero .meta{margin-top:20px;font-size:13px;color:#aaa}
+
+/* LAYOUT */
+.page-wrap{display:grid;grid-template-columns:240px 1fr;gap:60px;max-width:1100px;margin:60px auto;padding:0 40px}
+
+/* SIDEBAR */
+.sidebar{position:sticky;top:90px;align-self:start}
+.sidebar h4{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#b07d4a;margin-bottom:16px}
+.sidebar ul{list-style:none;display:flex;flex-direction:column;gap:2px}
+.sidebar ul li a{font-size:14px;color:#777;padding:8px 12px;border-radius:8px;display:block;border-left:2px solid transparent;transition:all 0.2s}
+.sidebar ul li a:hover,.sidebar ul li a.active{color:#2c2c2a;background:#f5f0e8;border-left-color:#b07d4a}
+
+/* CONTENT */
+.content section{margin-bottom:52px;scroll-margin-top:100px}
+.content section h2{font-size:22px;font-weight:600;color:#2c2c2a;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #ece8e0}
+.content p{font-size:15px;color:#555;line-height:1.85;margin-bottom:14px}
+.content ul,.content ol{padding-left:20px;margin-bottom:14px}
+.content ul li,.content ol li{font-size:15px;color:#555;line-height:1.85;margin-bottom:6px}
+.content strong{color:#2c2c2a;font-weight:600}
+.content a{color:#b07d4a;text-decoration:underline}
+
+/* COOKIE TYPE CARDS */
+.cookie-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.cookie-card{border:1px solid #ece8e0;border-radius:12px;padding:22px 20px}
+.cookie-card .cc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.cookie-card .cc-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cookie-card h3{font-size:15px;font-weight:600;color:#2c2c2a}
+.cookie-card p{font-size:13px;color:#777;line-height:1.7}
+.cookie-card .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-top:10px}
+.badge-required{background:#e8f5e9;color:#2e7d32}
+.badge-optional{background:#fff3e0;color:#e65100}
+
+/* TABLE */
+.cookie-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
+.cookie-table th{background:#f5f0e8;color:#2c2c2a;font-weight:600;padding:12px 16px;text-align:left;border-bottom:2px solid #e8dece}
+.cookie-table td{padding:12px 16px;border-bottom:1px solid #ece8e0;color:#555;vertical-align:top}
+.cookie-table tr:last-child td{border-bottom:none}
+.cookie-table tr:hover td{background:#faf8f5}
+
+/* TOGGLE TABLE */
+.toggle-table{width:100%;border-collapse:collapse;margin:20px 0}
+.toggle-table th{background:#f5f0e8;color:#2c2c2a;font-weight:600;padding:12px 16px;text-align:left;border-bottom:2px solid #e8dece;font-size:14px}
+.toggle-table td{padding:14px 16px;border-bottom:1px solid #ece8e0;font-size:14px;color:#555;vertical-align:middle}
+.toggle-table tr:last-child td{border-bottom:none}
+.toggle-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.toggle-info h4{font-size:14px;font-weight:600;color:#2c2c2a;margin-bottom:2px}
+.toggle-info p{font-size:12px;color:#aaa}
+.toggle{position:relative;width:44px;height:24px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;background:#ddd;border-radius:24px;cursor:pointer;transition:0.3s}
+.slider:before{content:'';position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:0.3s}
+input:checked+.slider{background:#b07d4a}
+input:checked+.slider:before{transform:translateX(20px)}
+input:disabled+.slider{cursor:not-allowed;opacity:0.7}
+
+/* PREFERENCES BOX */
+.pref-box{background:#f5f0e8;border-radius:12px;padding:28px;margin:20px 0}
+.pref-box h3{font-size:16px;font-weight:600;color:#2c2c2a;margin-bottom:8px}
+.pref-box p{font-size:14px;color:#6b6b68;margin-bottom:20px;line-height:1.7}
+.pref-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn-save{background:#2c2c2a;color:#fff;padding:11px 24px;border-radius:8px;font-size:14px;border:none;cursor:pointer;font-weight:500}
+.btn-save:hover{background:#444}
+.btn-reject{background:#fff;color:#2c2c2a;padding:11px 24px;border-radius:8px;font-size:14px;border:1px solid #ccc;cursor:pointer}
+.btn-reject:hover{background:#f0ebe2}
+.btn-accept-all{background:#b07d4a;color:#fff;padding:11px 24px;border-radius:8px;font-size:14px;border:none;cursor:pointer;font-weight:500}
+.btn-accept-all:hover{background:#9a6b3a}
+.save-msg{display:none;margin-top:12px;font-size:13px;color:#2e7d32;font-weight:500}
+.save-msg.show{display:block}
+
+/* INFO BOX */
+.info-box{background:#e8f0fb;border-left:3px solid #4a80c4;border-radius:0 8px 8px 0;padding:16px 20px;margin:20px 0}
+.info-box p{font-size:14px;color:#2c4a7a;margin:0;line-height:1.7}
+
+.warn-box{background:#fff8e1;border-left:3px solid #f9a825;border-radius:0 8px 8px 0;padding:16px 20px;margin:20px 0}
+.warn-box p{font-size:14px;color:#7a5a00;margin:0;line-height:1.7}
+
+/* CONTACT CARD */
+.contact-card{background:#f5f0e8;border-radius:12px;padding:28px;display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}
+.contact-card .icon{font-size:36px;flex-shrink:0}
+.contact-card h3{font-size:16px;font-weight:600;color:#2c2c2a;margin-bottom:8px}
+.contact-card p{font-size:14px;color:#6b6b68;line-height:1.7;margin-bottom:6px}
+.contact-card a{color:#b07d4a;text-decoration:underline}
+
+/* FOOTER */
+footer{padding:48px 40px;border-top:1px solid #ece8e0;background:#fff;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:32px;margin-top:40px}
+footer h4{font-size:13px;font-weight:600;margin-bottom:14px;color:#2c2c2a}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+footer ul li a{font-size:13px;color:#888}
+footer ul li a:hover{color:#2c2c2a}
+.footer-brand p{font-size:13px;color:#888;line-height:1.7;margin-top:8px}
+.footer-bottom{padding:18px 40px;border-top:1px solid #ece8e0;font-size:12px;color:#aaa;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+@media(max-width:768px){
+  nav{padding:14px 20px}
+  .nav-links{display:none}
+  .page-wrap{grid-template-columns:1fr;padding:0 20px;margin:32px auto}
+  .sidebar{display:none}
+  .cookie-cards{grid-template-columns:1fr}
+  .page-hero{padding:40px 20px}
+  .page-hero h1{font-size:28px}
+  footer{padding:36px 20px}
+  .footer-bottom{padding:14px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">Luxe<span>Casa</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="#">Shop</a></li>
+    <li><a href="#">Collections</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#">&#128269;</a>
+    <a href="#">&#128722;</a>
+    <a href="#" class="btn-nav">Get a Quote</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="tag">Legal &amp; Privacy</p>
+  <h1>Cookie Policy</h1>
+  <p>We believe in being transparent about how we use cookies and how they help us give you a better experience on our website.</p>
+  <p class="meta">Last updated: June 15, 2025 &nbsp;|&nbsp; Effective: June 15, 2025</p>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="page-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h4>On this page</h4>
+    <ul>
+      <li><a href="#what-are-cookies" class="active">What are cookies?</a></li>
+      <li><a href="#how-we-use">How we use cookies</a></li>
+      <li><a href="#types">Types of cookies</a></li>
+      <li><a href="#third-party">Third-party cookies</a></li>
+      <li><a href="#cookie-list">Cookie list</a></li>
+      <li><a href="#preferences">Your preferences</a></li>
+      <li><a href="#manage-browser">Managing in browser</a></li>
+      <li><a href="#updates">Policy updates</a></li>
+      <li><a href="#contact">Contact us</a></li>
+    </ul>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <section id="what-are-cookies">
+      <h2>What are cookies?</h2>
+      <p>Cookies are small text files that are placed on your device (computer, tablet, or phone) when you visit a website. They are widely used to make websites work more efficiently, as well as to provide information to the owners of the site.</p>
+      <p>Cookies are not programs and cannot carry viruses or install malware on your device. They simply store a small amount of data that helps us remember you and your preferences when you visit our site.</p>
+      <p>There are two main types of cookies based on how long they last:</p>
+      <ul>
+        <li><strong>Session cookies</strong> — These are temporary and are deleted from your device when you close your browser. They allow our website to remember what you put in your shopping cart during a single browsing session.</li>
+        <li><strong>Persistent cookies</strong> — These remain on your device for a set period of time (or until you delete them). They help us recognise you when you return to our website and remember your preferences.</li>
+      </ul>
+      <div class="info-box">
+        <p>&#8505; You can control and manage cookies in your browser at any time. See the <a href="#manage-browser">Managing cookies in your browser</a> section below for instructions.</p>
+      </div>
+    </section>
+
+    <section id="how-we-use">
+      <h2>How we use cookies</h2>
+      <p>LuxeCasa uses cookies for a number of important reasons. Cookies help us deliver a better, faster, and more personalised experience when you browse our website. Specifically, we use cookies to:</p>
+      <ul>
+        <li>Keep you signed in to your account across pages</li>
+        <li>Remember items you've added to your shopping cart</li>
+        <li>Remember your preferences (such as currency, language, or delivery region)</li>
+        <li>Understand how visitors use our website so we can improve it</li>
+        <li>Measure the effectiveness of our marketing campaigns and Google Ads</li>
+        <li>Show you relevant products and personalised recommendations</li>
+        <li>Prevent fraud and keep our website secure</li>
+        <li>Enable social media features such as sharing and reviews</li>
+      </ul>
+      <p>We only use cookie data to improve your experience — we do not sell your personal data to third parties.</p>
+    </section>
+
+    <section id="types">
+      <h2>Types of cookies we use</h2>
+      <p>We group the cookies on our website into four categories. Strictly necessary cookies are always active. You can choose to enable or disable the others using the <a href="#preferences">preference centre</a> below.</p>
+      <div class="cookie-cards">
+        <div class="cookie-card">
+          <div class="cc-head">
+            <div class="cc-icon" style="background:#e8f5e9;">&#128274;</div>
+            <h3>Strictly necessary</h3>
+          </div>
+          <p>Essential for the website to function. They enable core features like shopping cart, account login, and page navigation. The site cannot work properly without them.</p>
+          <span class="badge badge-required">Always active</span>
+        </div>
+        <div class="cookie-card">
+          <div class="cc-head">
+            <div class="cc-icon" style="background:#e8f0fb;">&#128200;</div>
+            <h3>Analytics</h3>
+          </div>
+          <p>Help us understand how visitors interact with our website by collecting anonymous data. This helps us improve page layout, content, and performance over time.</p>
+          <span class="badge badge-optional">Optional</span>
+        </div>
+        <div class="cookie-card">
+          <div class="cc-head">
+            <div class="cc-icon" style="background:#fff3e0;">&#127919;</div>
+            <h3>Marketing</h3>
+          </div>
+          <p>Used to track visitors across websites to deliver relevant ads. These cookies help us measure the return on ad spend and show you products you've already viewed.</p>
+          <span class="badge badge-optional">Optional</span>
+        </div>
+        <div class="cookie-card">
+          <div class="cc-head">
+            <div class="cc-icon" style="background:#f5f0e8;">&#9881;</div>
+            <h3>Functional</h3>
+          </div>
+          <p>Allow the website to remember choices you make (like your preferred currency or region) and provide enhanced, more personalised features and content.</p>
+          <span class="badge badge-optional">Optional</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="third-party">
+      <h2>Third-party cookies</h2>
+      <p>Some cookies on our website are set by trusted third-party services that we use to improve our site and marketing. These third parties have their own privacy policies and cookie practices, and we encourage you to review them.</p>
+      <ul>
+        <li><strong>Google Analytics</strong> — We use Google Analytics to understand how visitors use our site. Google may use this data in accordance with their own privacy policy. You can opt out via <a href="https://tools.google.com/dlpage/gaoptout" target="_blank">Google's opt-out tool</a>.</li>
+        <li><strong>Google Ads (formerly AdWords)</strong> — Conversion tracking cookies help us understand which ads lead to purchases on our site. This data is used only for advertising performance measurement.</li>
+        <li><strong>Meta Pixel (Facebook)</strong> — Used for Facebook and Instagram advertising, allowing us to measure ad effectiveness and retarget visitors who have shown interest in our products.</li>
+        <li><strong>Hotjar</strong> — Provides heatmaps and session recordings to help us understand user behaviour and improve the website design and usability.</li>
+        <li><strong>Stripe</strong> — Our payment processor sets cookies to enable secure payment processing and prevent fraudulent transactions.</li>
+      </ul>
+      <div class="warn-box">
+        <p>&#9888; Third-party cookies are subject to the privacy policies of those third parties. LuxeCasa does not control these cookies and is not responsible for the content of third-party privacy policies.</p>
+      </div>
+    </section>
+
+    <section id="cookie-list">
+      <h2>Cookie list</h2>
+      <p>Below is a detailed list of the cookies we use on the LuxeCasa website, what they do, and how long they last.</p>
+      <table class="cookie-table">
+        <thead>
+          <tr>
+            <th>Cookie name</th>
+            <th>Provider</th>
+            <th>Purpose</th>
+            <th>Expiry</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>lc_session</strong></td>
+            <td>LuxeCasa</td>
+            <td>Maintains your login session and shopping cart across pages</td>
+            <td>Session</td>
+            <td>Necessary</td>
+          </tr>
+          <tr>
+            <td><strong>lc_cart</strong></td>
+            <td>LuxeCasa</td>
+            <td>Stores your shopping cart contents between visits</td>
+            <td>30 days</td>
+            <td>Necessary</td>
+          </tr>
+          <tr>
+            <td><strong>lc_prefs</strong></td>
+            <td>LuxeCasa</td>
+            <td>Remembers your site preferences such as currency and region</td>
+            <td>1 year</td>
+            <td>Functional</td>
+          </tr>
+          <tr>
+            <td><strong>lc_cookie_consent</strong></td>
+            <td>LuxeCasa</td>
+            <td>Stores your cookie consent preferences</td>
+            <td>1 year</td>
+            <td>Necessary</td>
+          </tr>
+          <tr>
+            <td><strong>_ga</strong></td>
+            <td>Google Analytics</td>
+            <td>Distinguishes unique users by assigning a randomly generated number</td>
+            <td>2 years</td>
+            <td>Analytics</td>
+          </tr>
+          <tr>
+            <td><strong>_ga_*</strong></td>
+            <td>Google Analytics</td>
+            <td>Persists session state across Google Analytics 4 events</td>
+            <td>2 years</td>
+            <td>Analytics</td>
+          </tr>
+          <tr>
+            <td><strong>_gcl_au</strong></td>
+            <td>Google Ads</td>
+            <td>Stores and tracks conversions from Google Ads campaigns</td>
+            <td>90 days</td>
+            <td>Marketing</td>
+          </tr>
+          <tr>
+            <td><strong>_fbp</strong></td>
+            <td>Meta (Facebook)</td>
+            <td>Identifies browsers to provide advertising and site analytics</td>
+            <td>90 days</td>
+            <td>Marketing</td>
+          </tr>
+          <tr>
+            <td><strong>_hjSessionUser_*</strong></td>
+            <td>Hotjar</td>
+            <td>Ensures data from subsequent visits to the same site are attributed to the same user</td>
+            <td>1 year</td>
+            <td>Analytics</td>
+          </tr>
+          <tr>
+            <td><strong>__stripe_sid</strong></td>
+            <td>Stripe</td>
+            <td>Enables fraud prevention and secure payment processing</td>
+            <td>30 mins</td>
+            <td>Necessary</td>
+          </tr>
+          <tr>
+            <td><strong>__stripe_mid</strong></td>
+            <td>Stripe</td>
+            <td>Fraud detection and security for payment processing</td>
+            <td>1 year</td>
+            <td>Necessary</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="preferences">
+      <h2>Your preferences</h2>
+      <p>You can choose which categories of cookies you allow us to use. Strictly necessary cookies cannot be disabled as the website would not function without them. Your preferences will be saved for 12 months.</p>
+
+      <div class="pref-box">
+        <h3>&#9881; Cookie preference centre</h3>
+        <p>Toggle the categories below to control which cookies we set on your device. Click "Save preferences" to apply your choices.</p>
+
+        <table class="toggle-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th style="text-align:right;width:60px">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="toggle-info">
+                  <h4>&#128274; Strictly necessary</h4>
+                  <p>Required for the site to work. Cannot be disabled.</p>
+                </div>
+              </td>
+              <td style="text-align:right">
+                <label class="toggle"><input type="checkbox" checked disabled><span class="slider"></span></label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="toggle-info">
+                  <h4>&#128200; Analytics cookies</h4>
+                  <p>Help us improve the website using anonymous usage data.</p>
+                </div>
+              </td>
+              <td style="text-align:right">
+                <label class="toggle"><input type="checkbox" id="analytics" checked><span class="slider"></span></label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="toggle-info">
+                  <h4>&#127919; Marketing cookies</h4>
+                  <p>Used for personalised ads and conversion tracking.</p>
+                </div>
+              </td>
+              <td style="text-align:right">
+                <label class="toggle"><input type="checkbox" id="marketing"><span class="slider"></span></label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="toggle-info">
+                  <h4>&#9881; Functional cookies</h4>
+                  <p>Remember your preferences and personalise your experience.</p>
+                </div>
+              </td>
+              <td style="text-align:right">
+                <label class="toggle"><input type="checkbox" id="functional" checked><span class="slider"></span></label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="pref-actions">
+          <button class="btn-save" onclick="savePrefs()">Save preferences</button>
+          <button class="btn-accept-all" onclick="acceptAll()">Accept all</button>
+          <button class="btn-reject" onclick="rejectAll()">Reject optional</button>
+        </div>
+        <p class="save-msg" id="saveMsg">&#10003; Your preferences have been saved successfully.</p>
+      </div>
+    </section>
+
+    <section id="manage-browser">
+      <h2>Managing cookies in your browser</h2>
+      <p>In addition to the preference centre above, you can control cookies directly through your browser settings. Most browsers allow you to:</p>
+      <ul>
+        <li>View what cookies have been set and delete them individually</li>
+        <li>Block cookies from specific websites or all websites</li>
+        <li>Set your browser to notify you when a cookie is being set</li>
+        <li>Browse in private/incognito mode to prevent cookies being stored</li>
+      </ul>
+      <p>Here's how to manage cookies in the most popular browsers:</p>
+      <ul>
+        <li><strong>Google Chrome</strong> — Settings &rarr; Privacy and security &rarr; Cookies and other site data</li>
+        <li><strong>Mozilla Firefox</strong> — Settings &rarr; Privacy &amp; Security &rarr; Cookies and Site Data</li>
+        <li><strong>Apple Safari</strong> — Preferences &rarr; Privacy &rarr; Manage Website Data</li>
+        <li><strong>Microsoft Edge</strong> — Settings &rarr; Cookies and site permissions &rarr; Cookies and site data</li>
+        <li><strong>Opera</strong> — Settings &rarr; Advanced &rarr; Privacy &amp; security &rarr; Site Settings &rarr; Cookies</li>
+      </ul>
+      <div class="warn-box">
+        <p>&#9888; Please note that if you disable or delete cookies, some features of our website may not work correctly. For example, your shopping cart may not save items between visits, or you may be logged out automatically.</p>
+      </div>
+    </section>
+
+    <section id="updates">
+      <h2>Policy updates</h2>
+      <p>We may update this Cookie Policy from time to time to reflect changes in technology, legislation, or our business practices. When we make significant changes, we will notify you by:</p>
+      <ul>
+        <li>Updating the "Last updated" date at the top of this page</li>
+        <li>Showing a notice on our website the next time you visit</li>
+        <li>Sending an email notification if you have an account with us</li>
+      </ul>
+      <p>We encourage you to check this page periodically to stay informed about how we use cookies. Your continued use of the LuxeCasa website after any changes to this policy constitutes your acceptance of the updated policy.</p>
+      <p>Previous versions of this policy are available on request by emailing us at <a href="mailto:privacy@luxecasa.com">privacy@luxecasa.com</a>.</p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact us</h2>
+      <p>If you have any questions about this Cookie Policy, how we handle your data, or wish to exercise any of your rights under applicable privacy law (including CCPA or GDPR), please get in touch with us:</p>
+      <div class="contact-card">
+        <div class="icon">&#128231;</div>
+        <div>
+          <h3>LuxeCasa Privacy Team</h3>
+          <p>&#128140; Email: <a href="mailto:privacy@luxecasa.com">privacy@luxecasa.com</a></p>
+          <p>&#128222; Phone: <a href="tel:+16145550199">+1 (614) 555-0199</a> &nbsp;(Mon–Sat, 9am–6pm EST)</p>
+          <p>&#128205; Address: 120 S High Street, Columbus, Ohio 43215, United States</p>
+          <p style="margin-top:10px;font-size:13px;color:#aaa">We aim to respond to all privacy enquiries within 5 business days.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="index.html" class="logo">Luxe<span>Casa</span></a>
+    <p>Premium furniture crafted for modern living. Serving homes across the US since 2010.</p>
+  </div>
+  <div><h4>Shop</h4><ul><li><a href="#">Sofas</a></li><li><a href="#">Beds</a></li><li><a href="#">Dining</a></li><li><a href="#">Lighting</a></li><li><a href="#">Outdoor</a></li></ul></div>
+  <div><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li><li><a href="#">Sustainability</a></li></ul></div>
+  <div><h4>Support</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Delivery Info</a></li><li><a href="#">Returns</a></li><li><a href="#">Contact Us</a></li></ul></div>
+  <div><h4>Legal</h4><ul><li><a href="cookies.html">Cookie Policy</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms &amp; Conditions</a></li><li><a href="#">Accessibility</a></li></ul></div>
+</footer>
+<div class="footer-bottom">
+  <span>&copy; 2025 LuxeCasa. All rights reserved.</span>
+  <span>Designed with care in Columbus, Ohio</span>
+</div>
+
+<script>
+function savePrefs(){
+  var msg = document.getElementById('saveMsg');
+  msg.classList.add('show');
+  setTimeout(function(){ msg.classList.remove('show'); }, 3000);
+}
+function acceptAll(){
+  document.getElementById('analytics').checked = true;
+  document.getElementById('marketing').checked = true;
+  document.getElementById('functional').checked = true;
+  savePrefs();
+}
+function rejectAll(){
+  document.getElementById('analytics').checked = false;
+  document.getElementById('marketing').checked = false;
+  document.getElementById('functional').checked = false;
+  savePrefs();
+}
+
+// Highlight sidebar links on scroll
+var sections = document.querySelectorAll('.content section');
+var links = document.querySelectorAll('.sidebar ul li a');
+window.addEventListener('scroll', function(){
+  var scrollY = window.scrollY + 120;
+  sections.forEach(function(sec){
+    if(scrollY >= sec.offsetTop){
+      links.forEach(function(l){ l.classList.remove('active'); });
+      var id = sec.getAttribute('id');
+      var active = document.querySelector('.sidebar a[href="#' + id + '"]');
+      if(active) active.classList.add('active');
+    }
+  });
+});
+</script>
+</body>
+</html>
